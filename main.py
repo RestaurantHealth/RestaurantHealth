@@ -111,7 +111,7 @@ def location():
     longitude = request.json['longitude']
     global loc_dict
     loc_dict={'latitude': latitude, 'longitude': longitude}
-    return 'ok'
+    return str(latitude) + ', ' + str(longitude)
 
 @app.route('/index')
 @app.route('/')
