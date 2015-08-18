@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # [START app]
-from flask import Flask
+from flask import Flask, render_template
 import MySQLdb
 import os
 
@@ -25,10 +25,10 @@ if (env and env.startswith('Google App Engine/')):
 else:
     # Connecting from an external network.
     # Make sure your network is whitelisted
-    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='root',passwd='12345')
+    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='app_client',passwd='12345')
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_path='')
 
 @app.route('/test')
 def test():
@@ -71,10 +71,11 @@ def nameType():
         print 'nameType',name
     return 'nameType'
 
+@app.route('/index')
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World!'
+    return render_template('index.html')
 
 
 # [START health]
