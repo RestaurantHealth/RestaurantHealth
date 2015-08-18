@@ -14,6 +14,7 @@
 
 # [START app]
 from flask import Flask, render_template, request
+import logging
 import MySQLdb
 import os
 import json
@@ -30,6 +31,8 @@ else:
 
 
 app = Flask(__name__, static_path='')
+
+loc_dict = {}
 
 def qdb(sql):
     titles=["Name", "Program_Identifier", "Inspection_Date", "Description", "Address", "City", "Zip_Code", "Phone", "Longitude", "Latitude", "Inspection_Business_Name", "Inspection_Type", "Inspection_Score", "Inspection_Result", "Inspection_Closed_Business", "Violation_Type", "Violation_Description", "Violation_Points", "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
@@ -69,7 +72,7 @@ def dbui():
     return str(data)
 
 
-@app.route('/getBiz',methods=['GET'])
+@app.route('/getBiz', methods=['GET'])
 def getBiz():
     if request.method=='GET':
         name=request.form['name']
@@ -102,20 +105,24 @@ def nameType():
         print 'nameType',name
     return 'nameType'
 
+@app.route('/location', methods = ['POST'])
+def location():
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
+    global loc_dict
+    loc_dict={'latitude': latitude, 'longitude': longitude}
+    return 'ok'
 
 @app.route('/index')
 @app.route('/')
 def hello():
-    # jsonify results and send to template
-    # getNear()
-    # json_string = json.dumps(cursor.fetchall())
-    cur=qdb('select * from INSPECTIONS limit 3')
-    print(cur)
-    # data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
-    # print data
-    # json_string=data
+    cur=qdb('select DISTINCT * from INSPECTIONS limit 3')
 
+    print(cur)
+    print(loc_dict)
     return render_template('index.html', json_string=cur)
+
+
 
 
 # [START health]
