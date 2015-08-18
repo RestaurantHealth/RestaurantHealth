@@ -32,7 +32,7 @@ else:
 app = Flask(__name__, static_path='')
 
 def qdb(sql):
-    titles=["Name", "Program Identifier", "Inspection Date", "Description", "Address", "City", "Zip Code", "Phone", "Longitude", "Latitude", "Inspection Business Name", "Inspection Type", 0, "Inspection Result", "Inspection Closed Business", "Violation Type", "Violation Description", 0, "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
+    titles=["Name", "Program_Identifier", "Inspection_Date", "Description", "Address", "City", "Zip_Code", "Phone", "Longitude", "Latitude", "Inspection_Business_Name", "Inspection_Type", "Inspection_Score", "Inspection_Result", "Inspection_Closed_Business", "Violation_Type", "Violation_Description", "Violation_Points", "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
     cursor = db.cursor()
     cursor.execute(sql)
     tmp=list(cursor)
