@@ -114,11 +114,11 @@ def hello():
     # json_string = json.dumps(cursor.fetchall())
     cur=qdb('select * from INSPECTIONS limit 3')
     print(cur)
-    data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
-    print data
-    json_string=data
+    # data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
+    # print data
+    # json_string=data
 
-    return render_template('index.html', json_string=json_string)
+    return render_template('index.html', json_string=cur)
 
 
 # [START health]

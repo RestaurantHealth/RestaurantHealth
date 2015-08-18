@@ -49,13 +49,14 @@
       <!-- End Ew Search -->
 
       <div class="col-xs-12">
+      {{json_string}}
         {% for rest in json_string %}
             {{ rest }}
 
         <!-- BEGIN Ew Card -->
         <a href="#">
           <div class="panel panel-default ew-card">
-            <div class="panel-heading ew-panel-heading">Chick-Fil-A</div>
+            <div class="panel-heading ew-panel-heading">{{ rest.Name }}</div>
             <div class="panel-sub-heading">Fast Food</div>
             <div class="panel-body ew-panel-body">
               <address id="item-address">
@@ -66,7 +67,7 @@
               <a id="item-phone" href="tel:4254541758">(425) 454-1758</a> -->
               </address>
               <div class="ew-card-rating pull-right">
-                  {{ rest.INSPECTION_SCORE }} / 100
+                  11 / 100
               </div>
             </div>
             <div class="progress ew-card-progress">
