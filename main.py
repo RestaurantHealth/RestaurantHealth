@@ -39,7 +39,7 @@ def test():
     """Return a friendly HTTP greeting."""
     return 'test'
 
-@app.route('/db',methods=['GET'])
+@app.route('/dbui',methods=['GET'])
 def dbui():
     cursor = db.cursor()
     data=list(cursor.execute('SELECT 1 + 1'))
