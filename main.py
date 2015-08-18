@@ -72,13 +72,10 @@ def dbui():
 @app.route('/getBiz',methods=['GET'])
 def getBiz():
     if request.method=='GET':
-        # name=request.form['name']
-        name='EURASIADELIHOUSE'
-        # data=qdb('select * from INSPECTIONS limit 10' )
-        # print data
-        print 'select * from INSPECTIONS where Name=\'%s\' ' % (name)
-        data=qdb('select * from INSPECTIONS where City=\'%s\' ' % ('Kent'))
-        print 'getBiz',data
+        name=request.form['name']
+        # name='EURASIA DELI HOUSE'
+        print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
+        data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE'))
     return str(data)
 
 
