@@ -1,5 +1,6 @@
 /********************************
   Global Styling
+  Ew red = #EE4043
 *********************************/
 
 body {
@@ -31,7 +32,7 @@ a.navbar-brand img {
 
 
 /********************************
-  Landing Body Styles
+  Landing Page Styles
 *********************************/
 
 .ew-search-form {
@@ -92,12 +93,55 @@ address {
 
 .ew-card-rating {
   margin-top: -25%;
+  color: #464646;
   font-size: 3.2em;
 }
 
 .ew-card-progress {
   margin-bottom: 0;
-  height: 5px;
+  height: 3px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+
+/********************************
+  Ew-Resturant Page Styles
+*********************************/
+
+.ew-header-page {
+  overflow: hidden;
+  margin-top: -24px;
+  color: #333;
+}
+
+.ew-page-heading {
+  font-size: 1.8em;
+  opacity: 1;
+}
+
+.ew-page-map-overlay {
+  position: absolute;
+  margin-top: -108px;
+  width: 100%;
+  height: 110px;
+  background-color: #ffffff;
+  opacity: .8;
+}
+
+.ew-page {
+  width: 100%;
+  color: #464646;
+}
+
+.ew-page-rating {
+    position: absolute;
+    top: 20px;
+    right: 50px !important;
+    color: #464646;
+    font-size: 3.2em;
+}
+
+.ew-page-map {
+  height: 110px;
 }
