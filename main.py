@@ -18,6 +18,10 @@ from flask import Flask
 
 app = Flask(__name__)
 
+@app.route('/test')
+def test():
+    """Return a friendly HTTP greeting."""
+    return 'test'
 
 @app.route('/')
 def hello():
