@@ -6,6 +6,14 @@ body {
   background-color: #dcdcdc;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
 
 /********************************
   Header Branding
@@ -21,18 +29,28 @@ a.navbar-brand img {
   border-radius: 10px;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
 
 /********************************
   Landing Body Styles
 *********************************/
 
-.ew-search {
-  margin-right: 2%;
-  margin-left: 2%;
+.ew-search-form {
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
+.ew-search-btn-div {
+  margin-left: -20px;
+  padding-right: 0;
+  padding-left: 0;
+  width: 0%;
+}
+
+.ew-search-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: #EE4043;
+  color: #ffffff;
 }
 
 .ew-card {
