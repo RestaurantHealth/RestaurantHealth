@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # [START app]
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,jsonify
 import logging
 import MySQLdb
 import os
@@ -82,13 +82,13 @@ def getBiz():
     return str(data)
 
 
-@app.route('/getNear', methods=['GET'])
+@app.route('/getNear', methods=['POST'])
 def getNear():
-    if request.method=='GET':
-        lat=47.6440788597
-        lon=-122.2014702181
-        # lat=request.form['lat']
-        # lon=request.form['lon']
+    if request.method=='POST':
+        # lat=47.6440788597
+        # lon=-122.2014702181
+        lat=int(request.form['lat'])
+        lon=int(request.form['lon'])
         titles=["Business_ID", "Name","Longitude", "Latitude", "Address", "City", "Inspection_Score"]
         sql='SELECT BUSINESS_ID,  NAME, LAT, LONGITUDE, ADDRESS, CITY, INSPECTION_SCORE, ( 3959 * acos( cos( radians(%s) ) * cos( radians( LAT ) ) * cos( radians( LONGITUDE ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( LAT ) ) ) ) AS distance FROM INSPECTIONS GROUP BY BUSINESS_ID HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;' % (lat,lon,lat)
         cur = db.cursor()
@@ -103,7 +103,8 @@ def getNear():
         # print data
         # cur=qdb(sql)
         # print cur
-        return render_template('index.html', json_string=data)
+        # return render_template('index.html', json_string=data)
+        return jsonify(**data)
     return ''
 
 
@@ -141,8 +142,6 @@ def hello():
     # data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
     # print data
     # json_string=data
-    print(cur)
-    print(loc_dict)
     return render_template('index.html', json_string=cur)
 
 
