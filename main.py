@@ -36,14 +36,14 @@ def qdb(sql):
     cursor = db.cursor()
     cursor.execute(sql)
     tmp=list(cursor)
-    # titles=tmp[0]
-    if 'Name' in tmp[0]:
-        start=tmp[1:]
-    else:
-        start=tmp
     data=[]
-    for row in start:
-        data.append(dict(zip(titles,row)))
+    if len(tmp)>0:
+        if 'Name' in tmp[0]:
+            start=tmp[1:]
+        else:
+            start=tmp
+        for row in start:
+            data.append(dict(zip(titles,row)))
     return data
 
 
@@ -76,7 +76,8 @@ def getBiz():
         name='EURASIADELIHOUSE'
         # data=qdb('select * from INSPECTIONS limit 10' )
         # print data
-        data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % (name))
+        print 'select * from INSPECTIONS where Name=\'%s\' ' % (name)
+        data=qdb('select * from INSPECTIONS where City=\'%s\' ' % ('Kent'))
         print 'getBiz',data
     return str(data)
 
