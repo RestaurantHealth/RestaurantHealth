@@ -23,6 +23,34 @@ def test():
     """Return a friendly HTTP greeting."""
     return 'test'
 
+@app.route('/getBiz',methods=['POST'])
+def getBiz():
+    if request.method=='POST':
+        name=request.form['name']
+        print 'getBiz',name
+    return 'getBiz'
+
+@app.route('/getNear',methods=['POST'])
+def getNear():
+    if request.method=='POST':
+        name=request.form['name']
+        print 'getNear',name
+    return 'getNear'
+
+@app.route('/getNearType',methods=['POST'])
+def getNearType():
+    if request.method=='POST':
+        name=request.form['name']
+        print 'getNearType',name
+    return 'getNearType'
+
+@app.route('/nameType',methods=['POST'])
+def nameType():
+    if request.method=='POST':
+        name=request.form['name']
+        print 'nameType',name
+    return 'nameType'
+
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
