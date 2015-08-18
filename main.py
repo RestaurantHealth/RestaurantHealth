@@ -14,6 +14,7 @@
 
 # [START app]
 from flask import Flask, render_template, request
+import logging
 import MySQLdb
 import os
 import json
@@ -30,6 +31,8 @@ else:
 
 
 app = Flask(__name__, static_path='')
+
+loc_dict = {}
 
 def qdb(sql):
     titles=["Name", "Program_Identifier", "Inspection_Date", "Description", "Address", "City", "Zip_Code", "Phone", "Longitude", "Latitude", "Inspection_Business_Name", "Inspection_Type", "Inspection_Score", "Inspection_Result", "Inspection_Closed_Business", "Violation_Type", "Violation_Description", "Violation_Points", "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
@@ -74,7 +77,7 @@ def getBiz():
     if request.method=='POST':
         name=request.form['name']
         # name='EURASIA DELI HOUSE'
-        print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
+        # print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
         data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % (name))
     return str(data)
 
@@ -119,6 +122,13 @@ def nameType():
         print 'nameType',name
     return 'nameType'
 
+@app.route('/location', methods = ['POST'])
+def location():
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
+    global loc_dict
+    loc_dict={'latitude': latitude, 'longitude': longitude}
+    return 'ok'
 
 @app.route('/index')
 @app.route('/')
@@ -131,8 +141,11 @@ def hello():
     # data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
     # print data
     # json_string=data
-
+    print(cur)
+    print(loc_dict)
     return render_template('index.html', json_string=cur)
+
+
 
 
 # [START health]

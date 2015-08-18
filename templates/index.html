@@ -21,7 +21,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-12">
-          <div class="special-header-center">
+          <div class="special-header-center" >
             <a class="navbar-brand col-xs-12" href="/">
               <img class="img-responsive center-block" alt="Ew" src="img/ew.jpg">
             </a>
@@ -58,13 +58,14 @@
             <div class="panel-body ew-panel-body">
               <address id="item-address">
                 <br> {{ rest.Address }}
-                <br> {{ rest.City }}, {{ rest.zipcode }}
+                <br> {{ rest.City }}, {{ rest.Zip_Code }}
                 <!-- <br>
               <abbr title="Phone">P:</abbr>
               <a id="item-phone" href="tel:4254541758">(425) 454-1758</a> -->
               </address>
               <div class="ew-card-rating pull-right">
                   {{ rest.Inspection_Score }}
+                  <p id="location"></p>
               </div>
             </div>
             <div class="progress ew-card-progress">
@@ -83,6 +84,25 @@
   <!-- Javascript goes here to improve page load. ;)  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="js/patterns.min.js"></script>
+  <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(showPosition);
+        }
+    }
+
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        $.ajax({
+            type: 'POST',
+            url: '/location',
+            data: JSON.stringify({latitude: latitude, longitude: longitude}),
+            contentType: 'application/json;charset=UTF-8'
+        });
+    }
+      window.onload = getLocation();
+    </script>
 </body>
 
 </html>

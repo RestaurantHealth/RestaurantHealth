@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="comma, seperated, keywords">
+  <meta name="author" content="Peoples">
+  <title>Chick-Fil-A // Ew</title>
+  <link href="css/patterns.css" rel="stylesheet">
+  <link href="css/ew.css" rel="stylesheet">
+  <link href="img/favicon.ico" rel="icon">
+  <link href="img/favicon.ico" rel="apple-touch-icon">
+</head>
+
+<body class="hidden-sm hidden-md hidden-lg">
+  <!-- BEGIN Header Content -->
+  <nav class="navbar navbar-default navbar-static-top ew-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="special-header-center">
+            <a class="navbar-brand col-xs-12" href="/">
+              <img class="img-responsive center-block" alt="Ew" src="img/ew.jpg">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END Header Content -->
+  <!-- BEGIN Body Content -->
+  <div class="containter">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default ew-header-page">
+          <div id="ew-googlemaps" class="ew-page-map"></div>
+          <div class="ew-page-map-overlay">
+            <div class="panel-heading ew-page-heading">Chick-Fil-A</div>
+            <div class="panel-sub-heading">
+              <address id="item-address">
+                <br> 785 116th Ave NE
+                <br> Bellevue, Washington
+                <!-- <br>
+                <abbr title="Phone">P:</abbr>
+                <a id="item-phone" href="tel:4254541758">(425) 454-1758</a> -->
+              </address>
+            </div>
+            <div class="ew-page-rating">
+              11/100
+            </div>
+          </div>
+        </div>
+
+        <div class="ew-page-violation-section">
+          <div class="ew-page-violation-header">
+            Violations
+          </div>
+          <div class="ew-page-violation-type-header">
+            <div class="pull-left">
+              Inspection Type
+            </div>
+            <div class="pull-right">
+              Inspection Result
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <!-- END Body Content -->
+  <!-- Javascript goes here to improve page load. ;)  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/patterns.min.js"></script>
+  <script>
+    function initMap() {
+      var customMapType = new google.maps.StyledMapType([{
+        stylers: [{
+          hue: '#EE4043'
+        }, {
+          visibility: 'simplified'
+        }, {
+          gamma: 0.5
+        }, {
+          weight: 0.5
+        }]
+      }, {
+        elementType: 'labels',
+        stylers: [{
+          visibility: 'off'
+        }]
+      }, {
+        featureType: 'water',
+        stylers: [{
+          color: '#890000'
+        }]
+      }], {
+        name: 'Custom Style'
+      });
+      var customMapTypeId = 'custom_style';
+
+      var map = new google.maps.Map(document.getElementById('ew-googlemaps'), {
+        zoom: 14,
+        disableDefaultUI: true,
+        center: {
+          lat: 47.616801,
+          lng: -122.186333,
+        }, // Chick-Fil-A.
+      });
+
+      map.mapTypes.set(customMapTypeId, customMapType);
+      map.setMapTypeId(customMapTypeId);
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
+</body>
+
+</html>
