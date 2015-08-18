@@ -21,6 +21,10 @@ a.navbar-brand img {
   border-radius: 10px;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 
 /********************************
   Landing Body Styles
@@ -34,6 +38,7 @@ a.navbar-brand img {
 .ew-card {
   margin-right: 2%;
   margin-left: 2%;
+  color: #464646;
 }
 
 .ew-panel-body {
