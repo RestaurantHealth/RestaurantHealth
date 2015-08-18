@@ -146,8 +146,6 @@ def hello():
     return render_template('index.html', json_string=cur)
 
 
-
-
 # [START health]
 @app.route('/_ah/health')
 def health_check():
