@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting started with Python on Google Cloud Platform
 
 This repository is the complete sample code for the [Python Getting Started on Google Cloud Platform](http://cloud.google.com/python/getting-started) tutorials. Please refer to the tutorials for instructions on configuring, running, and deploying these samples.
@@ -22,3 +23,6 @@ Tutorial | Branch
 ## Licensing
 
 * See [LICENSE](LICENSE)
+=======
+# RestaurantHealth
+>>>>>>> 8929af204e726bebbade66d7771a8a771f138b8c
