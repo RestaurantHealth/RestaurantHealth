@@ -164,3 +164,15 @@ address {
   font-size: .9em;
   line-height: 1.8;
 }
+
+.ew-page-shitshow {
+  height: 24px;
+}
+
+.panel.panel-default.ew-page-accordion {
+  border-radius: 0;
+}
+
+.panel.panel-default.ew-page-accordion {
+  margin-top: 0px;
+}
