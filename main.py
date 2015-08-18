@@ -34,7 +34,12 @@ app = Flask(__name__, static_path='')
 def qdb(sql):
     cursor = db.cursor()
     cursor.execute(sql)
-    return list(cursor)
+    tmp=list(cursor)
+    titles=tmp[0]
+    data=[]
+    for row in tmp[1:]:
+        data.append(dict(zip(titles,row)))
+    return data
 
 
 @app.route('/test')
@@ -63,6 +68,7 @@ def dbui():
 def getBiz():
     if request.method=='POST':
         name=request.form['name']
+        cur=qdb('select * from INSPECTIONS limit 1')
         print 'getBiz',name
     return 'getBiz'
 
