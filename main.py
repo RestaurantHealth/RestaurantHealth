@@ -43,7 +43,7 @@ def qdb(sql):
         else:
             start=tmp
         for row in start:
-            data.append(dict(zip(titles,row)))
+            data.append(dict(zip(titles, row)))
     return data
 
 
@@ -112,10 +112,11 @@ def hello():
     # jsonify results and send to template
     # getNear()
     # json_string = json.dumps(cursor.fetchall())
-    cur=qdb('select * from INSPECTIONS limit 10')
-    data=json.dumps(cur)
+    cur=qdb('select * from INSPECTIONS limit 3')
+    print(cur)
+    data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
     print data
-    json_string=''
+    json_string=data
 
     return render_template('index.html', json_string=json_string)
 
