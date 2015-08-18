@@ -15,21 +15,17 @@
 # [START app]
 from flask import Flask
 import MySQLdb
+import os
 
 
 env = os.getenv('SERVER_SOFTWARE')
 if (env and env.startswith('Google App Engine/')):
-  # Connecting from App Engine
-  db = MySQLdb.connect(
-    unix_socket='/cloudsql/resturanthealth:food',
-    user='root')
+    # Connecting from App Engine
+    db = MySQLdb.connect(unix_socket='/cloudsql/resturanthealth:food',user='root')
 else:
-  # Connecting from an external network.
-  # Make sure your network is whitelisted
-  db = MySQLdb.connect(
-    host='173.194.232.10',
-    port=3306,
-    user='root',passwd='12345')
+    # Connecting from an external network.
+    # Make sure your network is whitelisted
+    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='root',passwd='12345')
 
 
 app = Flask(__name__)
