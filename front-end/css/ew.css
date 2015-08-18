@@ -1,0 +1,78 @@
+/********************************
+  Global Styling
+*********************************/
+
+body {
+  background-color: #dcdcdc;
+}
+
+
+/********************************
+  Header Branding
+*********************************/
+
+.haz-check-header {
+  height: 60px;
+  background-color: #ffffff;
+}
+
+a.navbar-brand img {
+  width: 30px;
+  border-radius: 10px;
+}
+
+
+/********************************
+  Landing Body Styles
+*********************************/
+
+.ew-search {
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.ew-card {
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.ew-panel-body {
+  padding-top: 0px;
+}
+
+.ew-panel-heading {
+  font-size: 1.5em;
+}
+
+.panel-default > .panel-heading {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.panel-default > .panel-sub-heading {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.panel-sub-heading {
+  margin-top: -15px;
+  padding: 5px 16px;
+  font-style: italic;
+  font-size: .8em;
+}
+
+address {
+  margin-bottom: 0px !important;
+}
+
+.ew-card-rating {
+  margin-top: -25%;
+  font-size: 3.2em;
+}
+
+.ew-card-progress {
+  margin-bottom: 0;
+  height: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
