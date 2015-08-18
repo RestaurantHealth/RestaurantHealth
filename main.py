@@ -25,7 +25,7 @@ if (env and env.startswith('Google App Engine/')):
 else:
     # Connecting from an external network.
     # Make sure your network is whitelisted
-    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='root',passwd='12345')
+    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='app_client',passwd='12345',db='INSPECTIONS')
 
 
 app = Flask(__name__)
@@ -38,9 +38,16 @@ def test():
 @app.route('/dbui',methods=['GET'])
 def dbui():
     cursor = db.cursor()
-    data=list(cursor.execute('SELECT 1 + 1'))
+    cursor.execute('select * from INSPECTIONS limit 10')
+    data=[]
+    for row in cursor:
+        data.append(row)
+    # data=db.use_result()
+    # for row in data:
+    #     print row
 
-    """Return a friendly HTTP greeting."""
+    # """Return a friendly HTTP greeting."""
+    # return str(data)
     return str(data)
 
 @app.route('/getBiz',methods=['POST'])
@@ -85,5 +92,5 @@ def health_check():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8080,debug=True)
 # [END app]
