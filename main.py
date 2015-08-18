@@ -32,12 +32,17 @@ else:
 app = Flask(__name__, static_path='')
 
 def qdb(sql):
+    titles=["Name", "Program Identifier", "Inspection Date", "Description", "Address", "City", "Zip Code", "Phone", "Longitude", "Latitude", "Inspection Business Name", "Inspection Type", 0, "Inspection Result", "Inspection Closed Business", "Violation Type", "Violation Description", 0, "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
     cursor = db.cursor()
     cursor.execute(sql)
     tmp=list(cursor)
-    titles=tmp[0]
+    # titles=tmp[0]
+    if 'Name' in tmp[0]:
+        start=tmp[1:]
+    else:
+        start=tmp
     data=[]
-    for row in tmp[1:]:
+    for row in start:
         data.append(dict(zip(titles,row)))
     return data
 
@@ -64,13 +69,16 @@ def dbui():
     return str(data)
 
 
-@app.route('/getBiz',methods=['POST'])
+@app.route('/getBiz',methods=['GET'])
 def getBiz():
-    if request.method=='POST':
-        name=request.form['name']
-        cur=qdb('select * from INSPECTIONS limit 1')
-        print 'getBiz',name
-    return 'getBiz'
+    if request.method=='GET':
+        # name=request.form['name']
+        name='EURASIADELIHOUSE'
+        # data=qdb('select * from INSPECTIONS limit 10' )
+        # print data
+        data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % (name))
+        print 'getBiz',data
+    return str(data)
 
 
 @app.route('/getNear', methods=['POST'])
