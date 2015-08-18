@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="special-header-center" >
-            <a class="navbar-brand col-xs-12" href="/">
+            <a class="navbar-brand col-xs-12" href="/getNear">
               <img id="get_nearby_biz" class="img-responsive center-block" alt="Ew" src="img/ew.jpg">
             </a>
           </div>
@@ -36,16 +36,14 @@
     <div class="row">
 
       <!-- BEGIN Ew Search -->
-      <form class="form-inline ew-search-form" method="get" action="https://duckduckgo.com/?q=">
           <div class="col-xs-11 pull-left">
-            <input type="search" class="form-control ew-search-input" id="ew-search-form">
+            <input type="search" id="search_input" class="form-control ew-search-input" id="ew-search-form">
           </div>
           <div class="col-xs-2 pull-left ew-search-btn-div">
             <button type="submit" class="btn btn-defaul ew-search-btn">
-              <span class="glyphicon glyphicon-search"></span>
+              <span id="search_btn" class="glyphicon glyphicon-search"></span>
             </button>
           </div>
-      </form>
       <!-- End Ew Search -->
 
       <div class="col-xs-12">
@@ -108,38 +106,12 @@
     }
       window.onload = getLocation();
 
-      $('#get_nearby_biz').on('click',function(){
-         console.log('test2');
-          $.post('/getNear',{'lat':'47.6440788597','lon':'-122.2014702181'},function(data){
-            data=eval(data);
-            console.log(data);
-          //   var html='';
-          //   $.each(data,function(index,val){
-          //      html+='<a href="#">';
-          //       html+='<div class="panel panel-default ew-card">';
-          //         html+='<div class="panel-heading ew-panel-heading">'+val['Name']+'</div>';
-          //         html+='<div class="panel-sub-heading">Fast Food</div>';
-          //         html+='<div class="panel-body ew-panel-body">';
-          //           html+='<address id="item-address">';
-          //             html+='<br>'+val['Address'];
-          //             html+='<br>'+val['City'];
-          //             html+='<br>';
-          //           html+='<abbr title="Phone">P:</abbr>';
-          //           html+='</address>';
-          //          html+=' <div class="ew-card-rating pull-right">';
-          //            html+='   <p id="location"></p>';
-          //           html+='</div>';
-          //         html+='</div>';
-          //        html+=' <div class="progress ew-card-progress">'+val['Inspection_Score'];
-          //          html+=' <div class="progress-bar ew-card-rating-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 11%">';
-          //          html+=' </div>';
-          //        html+=' </div>';
-          //      html+=' </div>';
-          //    html+=' </a>';
-          //  });
-          //     $('.col-xs-12').html(html);
-          // });
+      $('#search_btn').on('click',function(){
+        var input=$('#search_input').val();
+          window.location.href = "/getBiz/"+input;
       });
+
+      document.onload = getLocation();
     </script>
 </body>
 

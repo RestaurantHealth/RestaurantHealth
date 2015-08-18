@@ -72,23 +72,23 @@ def dbui():
     return str(data)
 
 
-@app.route('/getBiz',methods=['POST'])
-def getBiz():
-    if request.method=='POST':
-        name=request.form['name']
+@app.route('/getBiz/<name>',methods=['GET'])
+def getBiz(name=None):
+    if request.method=='GET':
+        # name=request.form['name']
         # name='EURASIA DELI HOUSE'
         # print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
         data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % (name))
     return str(data)
 
 
-@app.route('/getNear', methods=['POST'])
+@app.route('/getNear', methods=['GET'])
 def getNear():
-    if request.method=='POST':
-        # lat=47.6440788597
-        # lon=-122.2014702181
-        lat=int(request.form['lat'])
-        lon=int(request.form['lon'])
+    if request.method=='GET':
+        lat=47.6440788597
+        lon=-122.2014702181
+        # lat=int(request.form['lat'])
+        # lon=int(request.form['lon'])
         titles=["Business_ID", "Name","Longitude", "Latitude", "Address", "City", "Inspection_Score"]
         sql='SELECT BUSINESS_ID,  NAME, LAT, LONGITUDE, ADDRESS, CITY, INSPECTION_SCORE, ( 3959 * acos( cos( radians(%s) ) * cos( radians( LAT ) ) * cos( radians( LONGITUDE ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( LAT ) ) ) ) AS distance FROM INSPECTIONS GROUP BY BUSINESS_ID HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;' % (lat,lon,lat)
         cur = db.cursor()
@@ -103,8 +103,8 @@ def getNear():
         # print data
         # cur=qdb(sql)
         # print cur
-        # return render_template('index.html', json_string=data)
-        return jsonify(**data)
+        return render_template('index.html', json_string=data)
+        # return jsonify(**data)
     return ''
 
 
@@ -129,7 +129,7 @@ def location():
     longitude = request.json['longitude']
     global loc_dict
     loc_dict={'latitude': latitude, 'longitude': longitude}
-    return 'ok'
+    return str(latitude) + ', ' + str(longitude)
 
 @app.route('/index')
 @app.route('/')
@@ -143,8 +143,6 @@ def hello():
     # print data
     # json_string=data
     return render_template('index.html', json_string=cur)
-
-
 
 
 # [START health]
