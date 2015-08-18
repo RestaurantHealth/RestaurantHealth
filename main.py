@@ -1,3 +1,17 @@
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # [START app]
 from flask import Flask
 import MySQLdb
@@ -16,6 +30,9 @@ else:
     host='173.194.232.10',
     port=3306,
     user='root',passwd='12345')
+
+
+app = Flask(__name__)
 
 @app.route('/test')
 def test():
@@ -58,5 +75,19 @@ def nameType():
         print 'nameType',name
     return 'nameType'
 
+@app.route('/')
+def hello():
+    """Return a friendly HTTP greeting."""
+    return 'Hello World!'
+
+
+# [START health]
+@app.route('/_ah/health')
+def health_check():
+    return 'ok'
+# [END health]
+
+
 if __name__ == '__main__':
-    app.run(host, port)
+    app.run(host='0.0.0.0', port=8080)
+# [END app]
