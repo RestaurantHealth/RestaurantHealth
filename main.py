@@ -13,9 +13,10 @@
 # limitations under the License.
 
 # [START app]
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import MySQLdb
 import os
+import json
 
 
 env = os.getenv('SERVER_SOFTWARE')
@@ -30,10 +31,12 @@ else:
 
 app = Flask(__name__, static_path='')
 
+
 @app.route('/test')
 def test():
     """Return a friendly HTTP greeting."""
     return 'test'
+
 
 @app.route('/dbui',methods=['GET'])
 def dbui():
@@ -43,6 +46,7 @@ def dbui():
     """Return a friendly HTTP greeting."""
     return str(data)
 
+
 @app.route('/getBiz',methods=['POST'])
 def getBiz():
     if request.method=='POST':
@@ -50,12 +54,14 @@ def getBiz():
         print 'getBiz',name
     return 'getBiz'
 
-@app.route('/getNear',methods=['POST'])
+
+@app.route('/getNear', methods=['POST'])
 def getNear():
     if request.method=='POST':
         name=request.form['name']
         print 'getNear',name
     return 'getNear'
+
 
 @app.route('/getNearType',methods=['POST'])
 def getNearType():
@@ -64,6 +70,7 @@ def getNearType():
         print 'getNearType',name
     return 'getNearType'
 
+
 @app.route('/nameType',methods=['POST'])
 def nameType():
     if request.method=='POST':
@@ -71,11 +78,15 @@ def nameType():
         print 'nameType',name
     return 'nameType'
 
+
 @app.route('/index')
 @app.route('/')
 def hello():
-    """Return a friendly HTTP greeting."""
-    return render_template('index.html')
+    # jsonify results and send to template
+    getNear()
+    json_string = json.dumps(cursor.fetchall())
+
+    return render_template('index.html', json_string)
 
 
 # [START health]
