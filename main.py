@@ -26,14 +26,15 @@ if (env and env.startswith('Google App Engine/')):
 else:
     # Connecting from an external network.
     # Make sure your network is whitelisted
-<<<<<<< HEAD
     db = MySQLdb.connect(host='173.194.232.10',port=3306,user='app_client',passwd='12345',db='INSPECTIONS')
-=======
-    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='app_client',passwd='12345')
->>>>>>> 2b01f05b0e65d256f61e47b7d8074166a5e0e403
 
 
 app = Flask(__name__, static_path='')
+
+def qdb(sql):
+    cursor = db.cursor()
+    cursor.execute(sql)
+    return list(cursor)
 
 
 @app.route('/test')
@@ -94,10 +95,14 @@ def nameType():
 @app.route('/')
 def hello():
     # jsonify results and send to template
-    getNear()
-    json_string = json.dumps(cursor.fetchall())
+    # getNear()
+    # json_string = json.dumps(cursor.fetchall())
+    cur=qdb('select * from INSPECTIONS limit 10')
+    data=json.dumps(cur)
+    print data
+    json_string=''
 
-    return render_template('index.html', json_string)
+    return render_template('index.html', json_string=json_string)
 
 
 # [START health]
