@@ -49,7 +49,7 @@
       <div class="col-xs-12">
         {% for rest in json_string %}
         <!-- BEGIN Ew Card -->
-        <a href="#">
+        <a href="/getBiz/{{ rest.Business_ID }}">
           <div class="panel panel-default ew-card">
             <div class="panel-heading ew-panel-heading">{{ rest.Name }}</div>
             <div class="panel-sub-heading">Fast Food</div>
@@ -114,5 +114,6 @@
       document.onload = getLocation();
     </script>
 </body>
-
 </html>
+
+

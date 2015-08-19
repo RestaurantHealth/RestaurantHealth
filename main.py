@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # [START app]
-from flask import Flask, render_template, request,jsonify
+from flask import Flask, render_template, request
 import logging
 import MySQLdb
 import os
@@ -27,12 +27,13 @@ if (env and env.startswith('Google App Engine/')):
 else:
     # Connecting from an external network.
     # Make sure your network is whitelisted
-    db = MySQLdb.connect(host='173.194.232.10',port=3306,user='app_client',passwd='12345',db='INSPECTIONS')
+    db = MySQLdb.connect(host='173.194.232.10',port=3306, user='app_client',passwd='12345', db='INSPECTIONS')
 
 
 app = Flask(__name__, static_path='')
 
 loc_dict = {}
+
 
 def qdb(sql):
     titles=["Name", "Program_Identifier", "Inspection_Date", "Description", "Address", "City", "Zip_Code", "Phone", "Longitude", "Latitude", "Inspection_Business_Name", "Inspection_Type", "Inspection_Score", "Inspection_Result", "Inspection_Closed_Business", "Violation_Type", "Violation_Description", "Violation_Points", "Business_ID", "Inspection_Serial_Num", "Violation_Record_ID"]
@@ -72,23 +73,14 @@ def dbui():
     return str(data)
 
 
-@app.route('/getBiz/<name>',methods=['GET'])
-def getBiz(name=None):
-    if request.method=='GET':
-        # name=request.form['name']
-        # name='EURASIA DELI HOUSE'
-        # print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
-        data=qdb('select * from INSPECTIONS where Name=\'%s\' ' % (name))
-    return str(data)
-
 
 @app.route('/getNear', methods=['GET'])
 def getNear():
     if request.method=='GET':
         lat=47.6440788597
         lon=-122.2014702181
-        # lat=int(request.form['lat'])
-        # lon=int(request.form['lon'])
+        # lat=request.form['lat']
+        # lon=request.form['lon']
         titles=["Business_ID", "Name","Longitude", "Latitude", "Address", "City", "Inspection_Score"]
         sql='SELECT BUSINESS_ID,  NAME, LAT, LONGITUDE, ADDRESS, CITY, INSPECTION_SCORE, ( 3959 * acos( cos( radians(%s) ) * cos( radians( LAT ) ) * cos( radians( LONGITUDE ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( LAT ) ) ) ) AS distance FROM INSPECTIONS GROUP BY BUSINESS_ID HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;' % (lat,lon,lat)
         cur = db.cursor()
@@ -104,7 +96,6 @@ def getNear():
         # cur=qdb(sql)
         # print cur
         return render_template('index.html', json_string=data)
-        # return jsonify(**data)
     return ''
 
 
@@ -131,17 +122,26 @@ def location():
     loc_dict={'latitude': latitude, 'longitude': longitude}
     return str(latitude) + ', ' + str(longitude)
 
-@app.route('/index')
+
+@app.route('/getBiz/<Business_ID>', methods=['GET', 'POST'])
+def getBiz(Business_ID):
+    print(Business_ID)
+    if request.method=='POST' or Business_ID or request.method=='GET':
+        # print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
+        data = qdb('select * from INSPECTIONS where BUSINESS_ID=\'%s\' ' % (str(Business_ID)))
+        print(data)
+    return render_template('ew-listing.html', data=data)
+    # return str(data)
+
+
 @app.route('/')
 def hello():
     # jsonify results and send to template
     # getNear()
     # json_string = json.dumps(cursor.fetchall())
-    cur=qdb('select * from INSPECTIONS group by Name limit 20 ')
+    cur=qdb('select * from INSPECTIONS group by Name limit 1pyt  ')
     print(cur)
-    # data=json.dumps(cur, sort_keys=True, indent=4, separators=(',', ': '))
-    # print data
-    # json_string=data
+    print(loc_dict)
     return render_template('index.html', json_string=cur)
 
 
