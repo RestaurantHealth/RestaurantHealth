@@ -14,10 +14,12 @@
 
 # This file specifies your Python application's runtime configuration.
 # See https://cloud.google.com/appengine/docs/managed-vms/config for details.
-runtime: custom
-vm: true
-api_version: 1
 module: default
+runtime: python27
+vm: true
+
+api_version: 1
+threadsafe: yes
 
 resources:
   cpu: .5
@@ -26,22 +28,11 @@ resources:
 
 automatic_scaling:
   min_num_instances: 1
-  max_num_instances: 5
+  max_num_instances: 3
   cool_down_period_sec: 60
   cpu_utilization:
     target_utilization: 0.5
 
-beta_settings:
-  service_account_scopes: >
-    https://www.googleapis.com/auth/userinfo.email,
-    https://www.googleapis.com/auth/cloud-platform
-
-env_variables:
-  # Processes is passed to Honcho in Dockerfile to run a particular set of
-  # processes for this App Engine module. For the default module, only the
-  # frontend process is needed.
-  PROCESSES: bookshelf
-  # Used in main.py to determine whether or not to run in debug mode.
-  PYTHON_ENV: production
-  # Used to configure logging to Google Cloud Logging.
-  LOG_PATH: /var/log/app_engine/custom_logs
+handlers:
+- url: .*
+  script: main.app
