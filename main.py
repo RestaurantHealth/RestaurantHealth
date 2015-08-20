@@ -14,7 +14,6 @@
 
 # [START app]
 from flask import Flask, render_template, request
-import logging
 import MySQLdb
 import os
 import json
@@ -23,11 +22,11 @@ import json
 env = os.getenv('SERVER_SOFTWARE')
 if (env and env.startswith('Google App Engine/')):
     # Connecting from App Engine
-    db = MySQLdb.connect(unix_socket='/cloudsql/resturanthealth:food',user='root')
+    db = MySQLdb.connect(unix_socket='/cloudsql/resturanthealth:food', user='root')
 else:
     # Connecting from an external network.
     # Make sure your network is whitelisted
-    db = MySQLdb.connect(host='173.194.232.10',port=3306, user='app_client',passwd='12345', db='INSPECTIONS')
+    db = MySQLdb.connect(host='173.194.232.10', port=3306, user='app_client', passwd='12345', db='INSPECTIONS')
 
 
 app = Flask(__name__, static_path='')
@@ -51,10 +50,13 @@ def qdb(sql):
     return data
 
 
-@app.route('/test')
-def test():
-    """Return a friendly HTTP greeting."""
-    return 'test'
+def org_qdb(data):
+    id = 0
+    json_data = {}
+    for i in data:
+        json_data[id] = i
+        id+=1
+    return json.dumps(json_data, sort_keys=False, indent=4, separators=(',', ': '))
 
 
 @app.route('/dbui',methods=['GET'])
@@ -71,7 +73,6 @@ def dbui():
     # """Return a friendly HTTP greeting."""
     # return str(data)
     return str(data)
-
 
 
 @app.route('/getNear', methods=['GET'])
@@ -123,14 +124,29 @@ def location():
     return str(latitude) + ', ' + str(longitude)
 
 
+def getBusiness_JSON(data):
+    json_string = {}
+    print(org_qdb(data))
+    if len(data)>0:
+        for i in data:
+            json_string['Name'] = i.get('Name', {})
+            json_string['Address'] = i.get('Address', {})
+            json_string['City'] = i.get('City', {})
+            json_string['Zip_Code'] = i.get('Zip_Code', {})
+            json_string['Latitude'] = i.get('Latitude', {})
+            json_string['Longitude'] = i.get('Longitude', {})
+            json_string['Phone'] = i.get('Phone', {})
+    print json_string
+    return json_string
+
+
 @app.route('/getBiz/<Business_ID>', methods=['GET', 'POST'])
 def getBiz(Business_ID):
     print(Business_ID)
     if request.method=='POST' or Business_ID or request.method=='GET':
-        # print 'select * from INSPECTIONS where Name=\'%s\' ' % ('EURASIA DELI HOUSE')
         data = qdb('select * from INSPECTIONS where BUSINESS_ID=\'%s\' ' % (str(Business_ID)))
-        print(data)
-    return render_template('ew-listing.html', data=data)
+        business_data = getBusiness_JSON(data)
+    return render_template('ew-listing.html', json_string=data, business_data=business_data)
     # return str(data)
 
 
@@ -139,10 +155,8 @@ def hello():
     # jsonify results and send to template
     # getNear()
     # json_string = json.dumps(cursor.fetchall())
-    cur=qdb('select * from INSPECTIONS group by Name limit 1pyt  ')
-    print(cur)
-    print(loc_dict)
-    return render_template('index.html', json_string=cur)
+    data=qdb('select * from INSPECTIONS group by Name limit 5  ')
+    return render_template('index.html', json_string=data)
 
 
 # [START health]
@@ -153,5 +167,6 @@ def health_check():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080,debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
 # [END app]
+

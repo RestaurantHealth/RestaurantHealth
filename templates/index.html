@@ -9,10 +9,10 @@
   <meta name="keywords" content="comma, seperated, keywords">
   <meta name="author" content="Peoples">
   <title>Ew-App</title>
-  <link href="css/patterns.css" rel="stylesheet">
-  <link href="css/ew.css" rel="stylesheet">
-  <link href="img/favicon.ico" rel="icon">
-  <link href="img/favicon.ico" rel="apple-touch-icon">
+  <link href="{{ url_for('static', filename='css/patterns.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/ew.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="apple-touch-icon">
 </head>
 
 <body class="hidden-sm hidden-md hidden-lg">
@@ -23,7 +23,7 @@
         <div class="col-xs-12">
           <div class="special-header-center" >
             <a class="navbar-brand col-xs-12" href="/getNear">
-              <img id="get_nearby_biz" class="img-responsive center-block" alt="Ew" src="img/ew.jpg">
+              <img class="img-responsive center-block" alt="Ew" src="{{ url_for('static', filename='img/ew.jpg') }}">
             </a>
           </div>
         </div>
@@ -81,38 +81,38 @@
   <!-- END Body Content -->
   <!-- Javascript goes here to improve page load. ;)  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="js/patterns.min.js"></script>
-  <script>
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(showPosition);
-        }
-    }
-
-    function showPosition(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log('here');
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '/location',
-        //     data: JSON.stringify({latitude: latitude, longitude: longitude}),
-        //     contentType: 'application/json;charset=UTF-8'
-        // });
-        $.post('/getNear',{'lat':'47.6440788597','lon':'-122.2014702181'},function(data){
-            data=eval(data);
-            console.log(data);
-          });
-    }
-      window.onload = getLocation();
-
-      $('#search_btn').on('click',function(){
-        var input=$('#search_input').val();
-          window.location.href = "/getBiz/"+input;
-      });
-
-      document.onload = getLocation();
-    </script>
+  <script src="{{ url_for('static', filename='js/patterns.min.js') }}"></script>
+{#  <script>#}
+{#    function getLocation() {#}
+{#        if (navigator.geolocation) {#}
+{#            navigator.geolocation.watchPosition(showPosition);#}
+{#        }#}
+{#    }#}
+{##}
+{#    function showPosition(position) {#}
+{#        var latitude = position.coords.latitude;#}
+{#        var longitude = position.coords.longitude;#}
+{#        console.log('here');#}
+{#        // $.ajax({#}
+{#        //     type: 'POST',#}
+{#        //     url: '/location',#}
+{#        //     data: JSON.stringify({latitude: latitude, longitude: longitude}),#}
+{#        //     contentType: 'application/json;charset=UTF-8'#}
+{#        // });#}
+{#        $.post('/getNear',{'lat':'47.6440788597','lon':'-122.2014702181'},function(data){#}
+{#            data=eval(data);#}
+{#            console.log(data);#}
+{#          });#}
+{#    }#}
+{#      window.onload = getLocation();#}
+{##}
+{#      $('#search_btn').on('click',function(){#}
+{#        var input=$('#search_input').val();#}
+{#          window.location.href = "/getBiz/"+input;#}
+{#      });#}
+{##}
+{#      document.onload = getLocation();#}
+{#    </script>#}
 </body>
 </html>
 
