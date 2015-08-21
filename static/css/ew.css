@@ -124,8 +124,8 @@ address {
 
 .ew-page-map-overlay {
   position: absolute;
-  margin-top: -108px;
-  width: 100%;
+  margin-top: -200px;
+  width: 92%;
   height: 200px;
   background-color: #ffffff;
   opacity: .8;
