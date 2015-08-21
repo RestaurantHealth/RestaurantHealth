@@ -74,9 +74,9 @@
           {% for r_det in json_string %}
         <div class="panel-group ew-page-violation-results" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default ew-page-accordion">
-            <div class="panel-heading ew-page-accordion-title" role="tab" id="headingOne">
+            <div class="panel-heading ew-page-accordion-title" role="tab" id="heading{{ loop.index }}">
               <div class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
                   <div class="ew-page-shitshow">
                     <div class="pull-left inspection-type">
                       {{ r_det.Inspection_Type }}
@@ -88,7 +88,7 @@
                 </a>
               </div>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in ew-page-accordion-body-panel" role="tabpanel" aria-labelledby="headingOne">
+            <div id="collapseOne" class="panel-collapse collapse in ew-page-accordion-body-panel" role="tabpanel" aria-labelledby="heading{{ loop.index }}">
               <div class="panel-body ew-page-accordion-body-content">
                 <div>
                   Inspection Result: {{ r_det.Inspection_Result }}
