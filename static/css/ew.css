@@ -4,6 +4,7 @@
 *********************************/
 
 body {
+  min-height: 2000px !important;
   background-color: #dcdcdc;
 }
 
