@@ -16,6 +16,11 @@ a:visited {
   text-decoration: none;
 }
 
+.remove-column-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 
 /********************************
   Header Branding
@@ -124,8 +129,9 @@ address {
 
 .ew-page-map-overlay {
   position: absolute;
-  margin-top: -200px;
-  width: 92%;
+  top: -20px;
+  right: 0;
+  left: 0;
   height: 200px;
   background-color: #ffffff;
   opacity: .8;
